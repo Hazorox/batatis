@@ -1,37 +1,40 @@
 package com.hazoro.batatis;
 
+import com.hazoro.batatis.item.ModItems;
 import com.mojang.logging.LogUtils;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
-import net.minecraftforge.api.distmarker.Dist;
+import net.minecraft.world.level.block.entity.vault.VaultBlockEntity;
+import net.minecraftforge.common.ForgeConfig;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod(ExampleMod.MODID)
-public final class ExampleMod {
+@Mod(batatis.MOD_ID)
+public final class batatis {
     // Define mod id in a common place for everything to reference
-    public static final String MODID = "examplemod";
+    public static final String MOD_ID = "batatis";
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
+
+    // Got Some help from claude since the guide I was following wasn't for 1.21.11
+    public batatis(FMLJavaModLoadingContext context) {
+        var modBusGroup = context.getModBusGroup();
+        ModItems.ITEMS.register(modBusGroup);
+    }
+
+    private static void addCreative(BuildCreativeModeTabContentsEvent event) {
+        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS)
+            event.accept(ModItems.BATATIS);
+    }
 
 }
 //        // Create a Deferred Register to hold Blocks which will all be registered under the "examplemod" namespace
@@ -54,7 +57,7 @@ public final class ExampleMod {
 //        );
 //
 //        // Creates a new food item with the id "examplemod:example_id", nutrition 1 and saturation 2
-//        public static final RegistryObject<Item> EXAMPLE_ITEM = ITEMS.register("example_item",
+//        public static final RegistryObject<Item> ModItems.BATATIS = ITEMS.register("example_item",
 //                () -> new Item(new Item.Properties()
 //                        .setId(ITEMS.key("example_item"))
 //                        .food(new FoodProperties.Builder()

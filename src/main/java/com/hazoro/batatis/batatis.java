@@ -25,16 +25,18 @@ public final class batatis {
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    // Got Some help from claude since the guide I was following wasn't for 1.21.11
-    public batatis(FMLJavaModLoadingContext context) {
-        var modBusGroup = context.getModBusGroup();
-        ModItems.ITEMS.register(modBusGroup);
-    }
-
     private static void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS)
             event.accept(ModItems.BATATIS);
     }
+
+    // Got Some help from claude since the guide I was following wasn't for 1.21.11
+    public batatis(FMLJavaModLoadingContext context) {
+        var modBusGroup = context.getModBusGroup();
+        ModItems.ITEMS.register(modBusGroup);
+        BuildCreativeModeTabContentsEvent.getBus(modBusGroup).addListener(batatis::addCreative);
+    }
+
 
 }
 //        // Create a Deferred Register to hold Blocks which will all be registered under the "examplemod" namespace

@@ -13,6 +13,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> BATATIS = ITEMS.register("batatis", () -> new Item(
             new Item.Properties()
+
                     .food(new FoodProperties.Builder()
                             .alwaysEdible()
                             .nutrition(1)

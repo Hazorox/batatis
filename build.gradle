@@ -26,7 +26,7 @@ minecraft {
             workingDir = layout.projectDirectory.dir('run')
 
             systemProperty 'eventbus.api.strictRuntimeChecks', 'true'
-            systemProperty 'forge.enabledGameTestNamespaces', 'examplemod'
+            systemProperty 'forge.enabledGameTestNamespaces', 'batatis'
         }
 
         register('client')
@@ -40,7 +40,7 @@ minecraft {
         register('data') {
             workingDir = layout.projectDirectory.dir('run-data')
 
-            args '--mod', 'examplemod', '--all', '--output', layout.projectDirectory.dir('src/generated/resources'), '--existing', layout.projectDirectory.dir('src/main/resources')
+            args '--mod', 'batatis', '--all', '--output', layout.projectDirectory.dir('src/generated/resources'), '--existing', layout.projectDirectory.dir('src/main/resources')
         }
     }
 }
